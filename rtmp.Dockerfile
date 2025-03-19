@@ -12,7 +12,7 @@ WORKDIR /tmp
 RUN apk update && apk add --no-cache \
     git \
     build-base \
-    libpcre3-dev \
+    pcre-dev \
     openssl-dev \
     zlib-dev \
     wget \
