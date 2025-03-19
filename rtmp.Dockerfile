@@ -1,10 +1,10 @@
 FROM alpine:3.21 AS builder
 
-ARG POWERIRL_RTMP_PORT=1935
-ARG POWERIRL_HTTP_PORT=8181
+# ARG POWERIRL_RTMP_PORT=1935
+# ARG POWERIRL_HTTP_PORT=8181
 
-ENV POWERIRL_RTMP_PORT=$POWERIRL_RTMP_PORT
-ENV POWERIRL_HTTP_PORT=$POWERIRL_HTTP_PORT
+# ENV POWERIRL_RTMP_PORT=$POWERIRL_RTMP_PORT
+# ENV POWERIRL_HTTP_PORT=$POWERIRL_HTTP_PORT
 
 WORKDIR /tmp
 
@@ -29,11 +29,9 @@ RUN wget http://nginx.org/download/nginx-1.20.2.tar.gz && \
     ./configure --add-module=../nginx-rtmp-module && \
     make -j$(nproc) && make install
 
-# Copy your nginx.conf (ensure this file is in the same directory as your Dockerfile)
-COPY nginx.conf /usr/local/nginx/conf/nginx.conf
-
 # Expose the necessary ports (if using default RTMP port 1935)
-EXPOSE ${POWERIRL_RTMP_PORT}/udp ${POWERIRL_HTTP_PORT}/tcp
+# EXPOSE ${POWERIRL_RTMP_PORT}/udp ${POWERIRL_HTTP_PORT}/tcp
+EXPOSE 1935/udp 8181/tcp
 
 # Start nginx in the foreground
 CMD ["/usr/local/nginx/sbin/nginx", "-g", "daemon off;"]
