@@ -1,5 +1,11 @@
 FROM alpine:3.21 AS builder
 
+ARG POWERIRL_HTTP_PORT=8181
+ARG PowerIRL_RTMP_PORT=1935
+
+ENV POWERIRL_HTTP_PORT=$POWERIRL_HTTP_PORT
+ENV POWERIRL_RTMP_PORT=$POWERIRL_RTMP_PORT
+
 WORKDIR /tmp
 
 # Install dependencies
@@ -24,7 +30,7 @@ RUN wget https://nginx.org/download/nginx-1.26.3.tar.gz && \
     make -j$(nproc) && make install
 
 # Expose the necessary ports (if using default RTMP port 1935)
-EXPOSE 1935/udp 8181/tcp
+EXPOSE ${POWERIRL_RTMP_PORT}/udp ${POWERIRL_HTTP_PORT}/tcp
 
 # Start nginx in the foreground
 CMD ["/usr/local/nginx/sbin/nginx", "-g", "daemon off;"]
