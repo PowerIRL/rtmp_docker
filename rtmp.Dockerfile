@@ -25,7 +25,7 @@ WORKDIR /nginx
 RUN wget https://nginx.org/download/nginx-1.26.3.tar.gz && \
     tar -zxvf nginx-1.26.3.tar.gz && \
     git clone --depth 1 https://github.com/arut/nginx-rtmp-module.git && \
-    cd nginx-1.20.2 && \
+    cd nginx-1.26.3 && \
     ./configure --add-module=../nginx-rtmp-module && \
     make -j$(nproc) && make install
 
